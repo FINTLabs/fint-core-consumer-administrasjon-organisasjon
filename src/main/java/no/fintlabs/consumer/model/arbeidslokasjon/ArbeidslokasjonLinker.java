@@ -44,8 +44,12 @@ public class ArbeidslokasjonLinker extends FintLinker<ArbeidslokasjonResource> {
     @Override
     public Stream<String> getAllSelfHrefs(ArbeidslokasjonResource resource) {
         Stream.Builder<String> builder = Stream.builder();
-        if (!isNull(resource.getSystemId()) && !StringUtils.isEmpty(resource.getSystemId().getIdentifikatorverdi())) {
-            builder.add(createHrefWithId(resource.getSystemId().getIdentifikatorverdi(), "systemid"));
+        if (!isNull(resource.getLokasjonskode()) && !StringUtils.isEmpty(resource.getLokasjonskode().getIdentifikatorverdi())) {
+            builder.add(createHrefWithId(resource.getLokasjonskode().getIdentifikatorverdi(), "lokasjonskode"));
+        }
+
+        if (!isNull(resource.getOrganisasjonsnummer()) && !StringUtils.isEmpty(resource.getOrganisasjonsnummer().getIdentifikatorverdi())) {
+            builder.add(createHrefWithId(resource.getLokasjonskode().getIdentifikatorverdi(), "organisasjonsnummer"));
         }
 
         return builder.build();
@@ -53,8 +57,12 @@ public class ArbeidslokasjonLinker extends FintLinker<ArbeidslokasjonResource> {
 
     int[] hashCodes(ArbeidslokasjonResource resource) {
         IntStream.Builder builder = IntStream.builder();
-        if (!isNull(resource.getSystemId()) && !StringUtils.isEmpty(resource.getSystemId().getIdentifikatorverdi())) {
-            builder.add(resource.getSystemId().getIdentifikatorverdi().hashCode());
+        if (!isNull(resource.getLokasjonskode()) && !StringUtils.isEmpty(resource.getLokasjonskode().getIdentifikatorverdi())) {
+            builder.add(resource.getLokasjonskode().getIdentifikatorverdi().hashCode());
+        }
+
+        if (!isNull(resource.getOrganisasjonsnummer()) && !StringUtils.isEmpty(resource.getOrganisasjonsnummer().getIdentifikatorverdi())) {
+            builder.add(resource.getOrganisasjonsnummer().getIdentifikatorverdi().hashCode());
         }
 
         return builder.build().toArray();
