@@ -69,7 +69,7 @@ public class ArbeidslokasjonService extends CacheService<ArbeidslokasjonResource
         return getCache().getLastUpdatedByFilter(systemId.hashCode(),
                 (resource) -> Optional
                         .ofNullable(resource)
-                        .map(ArbeidslokasjonResource::getSystemId)
+                        .map(ArbeidslokasjonResource::getLokasjonskode)
                         .map(Identifikator::getIdentifikatorverdi)
                         .map(systemId::equals)
                         .orElse(false)
