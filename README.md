@@ -1,0 +1,1 @@
+# FINT Core Consumer Administrasjon Organisasjon
