@@ -44,8 +44,16 @@ public class OrganisasjonselementLinker extends FintLinker<OrganisasjonselementR
     @Override
     public Stream<String> getAllSelfHrefs(OrganisasjonselementResource resource) {
         Stream.Builder<String> builder = Stream.builder();
-        if (!isNull(resource.getSystemId()) && !StringUtils.isEmpty(resource.getSystemId().getIdentifikatorverdi())) {
-            builder.add(createHrefWithId(resource.getSystemId().getIdentifikatorverdi(), "systemid"));
+        if (!isNull(resource.getOrganisasjonsId()) && !StringUtils.isEmpty(resource.getOrganisasjonsId().getIdentifikatorverdi())) {
+            builder.add(createHrefWithId(resource.getOrganisasjonsId().getIdentifikatorverdi(), "organisasjonsid"));
+        }
+
+        if (!isNull(resource.getOrganisasjonsKode()) && !StringUtils.isEmpty(resource.getOrganisasjonsKode().getIdentifikatorverdi())) {
+            builder.add(createHrefWithId(resource.getOrganisasjonsKode().getIdentifikatorverdi(), "organisasjonskode"));
+        }
+
+        if (!isNull(resource.getOrganisasjonsnummer()) && !StringUtils.isEmpty(resource.getOrganisasjonsnummer().getIdentifikatorverdi())) {
+            builder.add(createHrefWithId(resource.getOrganisasjonsnummer().getIdentifikatorverdi(), "organisasjonsnummer"));
         }
 
         return builder.build();
@@ -53,8 +61,16 @@ public class OrganisasjonselementLinker extends FintLinker<OrganisasjonselementR
 
     int[] hashCodes(OrganisasjonselementResource resource) {
         IntStream.Builder builder = IntStream.builder();
-        if (!isNull(resource.getSystemId()) && !StringUtils.isEmpty(resource.getSystemId().getIdentifikatorverdi())) {
-            builder.add(resource.getSystemId().getIdentifikatorverdi().hashCode());
+        if (!isNull(resource.getOrganisasjonsId()) && !StringUtils.isEmpty(resource.getOrganisasjonsId().getIdentifikatorverdi())) {
+            builder.add(resource.getOrganisasjonsId().getIdentifikatorverdi().hashCode());
+        }
+
+        if (!isNull(resource.getOrganisasjonsKode()) && !StringUtils.isEmpty(resource.getOrganisasjonsKode().getIdentifikatorverdi())) {
+            builder.add(resource.getOrganisasjonsKode().getIdentifikatorverdi().hashCode());
+        }
+
+        if (!isNull(resource.getOrganisasjonsnummer()) && !StringUtils.isEmpty(resource.getOrganisasjonsnummer().getIdentifikatorverdi())) {
+            builder.add(resource.getOrganisasjonsnummer().getIdentifikatorverdi().hashCode());
         }
 
         return builder.build().toArray();

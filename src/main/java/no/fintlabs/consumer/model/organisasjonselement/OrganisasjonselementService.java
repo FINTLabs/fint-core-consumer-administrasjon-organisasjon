@@ -69,7 +69,7 @@ public class OrganisasjonselementService extends CacheService<Organisasjonseleme
         return getCache().getLastUpdatedByFilter(systemId.hashCode(),
                 (resource) -> Optional
                         .ofNullable(resource)
-                        .map(OrganisasjonselementResource::getSystemId)
+                        .map(OrganisasjonselementResource::getOrganisasjonsId)
                         .map(Identifikator::getIdentifikatorverdi)
                         .map(systemId::equals)
                         .orElse(false)
