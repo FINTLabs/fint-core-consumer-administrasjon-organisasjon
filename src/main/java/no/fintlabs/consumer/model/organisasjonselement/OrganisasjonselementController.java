@@ -1,5 +1,6 @@
 package no.fintlabs.consumer.model.organisasjonselement;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import no.fint.antlr.FintFilterService;
 import no.fint.model.resource.administrasjon.organisasjon.OrganisasjonselementResource;
@@ -28,4 +29,12 @@ public class OrganisasjonselementController extends WriteableConsumerRestControl
             OrganisasjonselementRequestKafkaConsumer organisasjonselementRequestKafkaConsumer) {
         super(cacheService, fintLinker, organisasjonselementConfig, organisasjonselementEventKafkaProducer, organisasjonselementResponseKafkaConsumer, odataFilterService, organisasjonselementRequestKafkaConsumer);
     }
+
+    @PostConstruct
+    private void registerIdentificators() {
+        super.registerIdenficatorHandler("organisasjonsid", OrganisasjonselementResource::getOrganisasjonsId);
+        super.registerIdenficatorHandler("organisasjonsnummer", OrganisasjonselementResource::getOrganisasjonsnummer);
+        super.registerIdenficatorHandler("organisasjonskode", OrganisasjonselementResource::getOrganisasjonsKode);
+    }
+
 }
