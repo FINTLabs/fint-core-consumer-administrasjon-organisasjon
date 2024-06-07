@@ -17,7 +17,7 @@ spec:
       volumes:
         - name: credentials
           secret:
-            secretName: fint-core-consumer-administrasjon-organisasjon-kafka-certificates
+            secretName: consumer-administrasjon-organisasjon-kafka-certificates
       containers:
         - image: ghcr.io/fintlabs/fint-core-consumer-administrasjon-organisasjon:sha-0000000
           name: fint-core-consumer-administrasjon-organisasjon
@@ -35,6 +35,6 @@ spec:
             - containerPort: 8080
           envFrom:
             - secretRef:
-                name: fint-core-consumer-administrasjon-organisasjon-kafka
+                name: consumer-administrasjon-organisasjon-kafka
             - configMapRef:
                 name: fint-core-consumer-administrasjon-organisasjon
