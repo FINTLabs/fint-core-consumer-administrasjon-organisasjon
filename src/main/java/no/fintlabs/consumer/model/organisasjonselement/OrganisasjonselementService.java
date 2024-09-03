@@ -44,11 +44,11 @@ public class OrganisasjonselementService extends CacheService<Organisasjonseleme
 
     @PostConstruct
     private void registerKafkaListener() {
-        long retention = entityKafkaConsumer.registerListener(OrganisasjonselementResource.class, this::addResourceToCache);
-        getCache().setRetentionPeriodInMs(retention);
+        entityKafkaConsumer.registerListener(OrganisasjonselementResource.class, this::addResourceToCache);
     }
 
     private void addResourceToCache(ConsumerRecord<String, OrganisasjonselementResource> consumerRecord) {
+        updateRetensionTime(consumerRecord.headers().lastHeader("topic-retension-time"));
         this.eventLogger.logDataRecieved();
         OrganisasjonselementResource resource = consumerRecord.value();
         if (resource == null) {
@@ -56,7 +56,7 @@ public class OrganisasjonselementService extends CacheService<Organisasjonseleme
         } else {
             linker.mapLinks(resource);
             this.getCache().put(consumerRecord.key(), resource, linker.hashCodes(resource));
-            if (consumerRecord.headers().lastHeader("event-corr-id") != null){
+            if (consumerRecord.headers().lastHeader("event-corr-id") != null) {
                 String corrId = new String(consumerRecord.headers().lastHeader("event-corr-id").value(), StandardCharsets.UTF_8);
                 log.debug("Adding corrId to EntityResponseCache: {}", corrId);
                 organisasjonselementResponseKafkaConsumer.getEntityCache().add(corrId, resource);
